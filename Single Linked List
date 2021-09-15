@@ -1,0 +1,262 @@
+#include<iostream>
+using namespace std;
+
+struct Node
+{
+     int data;
+     int *next;
+};
+
+class Singly_Linked_list
+{
+protected:
+     int *head;
+     int *tail;    
+public:
+        Singly_Linked_list();
+        void addInTheEnd(int info);
+		void addInTheStart(int info);
+		void add_at_Location(int info, int val);
+		void del_at_Location(int info);
+		void search_Node(int info);
+		void display();
+
+};
+
+Singly_Linked_list::Singly_Linked_list();
+{
+    head=NULL;
+    tail=NULL;
+}
+
+void Singly_linked_list::addInTheEnd(int info)             
+{
+    Node *temp=new Node;
+    temp->data=info;
+    temp->next=NULL;
+    if(head==NULL)
+    {
+        head=temp;
+        tail=temp;      
+    } 
+    else
+    {
+         tail->next=temp;
+         tail=temp;
+    }
+}
+
+void Singly_Linked_List::addInTheStart(int info)
+{
+   Node *temp=new Node;
+   temp->data=info;
+   temp->next=NULL;
+
+   if(head=NULL)
+   {
+       head=temp;
+       tail=temp;
+   }  
+   else
+   {
+       temp->next=head;
+       head=temp;
+   }
+
+}
+
+
+void Singly_Linked_List::add_at_Location(int info, int val)          //This function will search a node(according to data) and will insert value at it's next 
+{
+     if(head==NULL)
+     {
+         cout<<"This Linked List is empty"<<endl;
+     }
+     
+     if(head==tail && head->data==val)
+     {
+          Node *temp=new Node;
+          temp->next=NULL;
+          temp->data=info;
+          head->next=temp;
+          tail=temp;
+                
+     }
+
+     else if(head==tail && data!=val)
+     {
+         cout<<val<<" data does not exist"<<endl;
+     }
+
+     else if(val==tail->data)
+     {
+        Node *temp=new Node;
+        temp->next=NULL;
+        temp->data=info;
+        tail->next=temp;
+        tail=temp;
+     }
+
+     else
+     {
+        Node *search;
+        search=head;
+        while(search->next!=NULL)
+        {
+           if(search->data==val)
+           {
+              Node *temp=new Node;
+              temp->data=info; 
+              temp->nex=search->next;
+              search->next=temp;
+           }
+           else
+           {
+               search=search->next;
+           }
+        }
+     }
+
+}
+
+
+void Singly_Linked_List::del_at_Location(int info)       //This function will search a node(according to data) and will Delete that Node  
+{
+   if(head==NULL)
+   {
+       cout<<"This Linked List is Empty "<<endl;
+   }
+
+   if(head==tail && head->data==val)
+     {
+         delete head;
+         delete tail;
+         head=NULL;    
+         tail=NULL;
+     }
+
+     else if(head==tail && data!=val)
+     {
+         cout<<val<<" data does not exist"<<endl;
+     }
+
+     else if(val==tail->data)
+     {
+          Node *previous;
+          search=previous=head;
+          while(previous->next!=tail)
+          {
+               previous=previous->next;
+          }
+          previous->next=NULL;
+          tail=previous; 
+          delete previous; 
+     }
+
+     else
+     {
+        Node *search;
+        Node *previous;
+        search=head;
+        while(search->next!=NULL)
+        {
+           if(search->data==val)
+           {
+             while(previous->next!=search)
+             {
+               previous=previous->next;
+             }
+              previous->next=search->next;
+              delete search;
+           }
+           else
+           {
+               search=search->next;
+           }
+        }
+     }
+}
+
+
+void Singly_Linked_List::search_Node(int info)
+{
+  if(head==NULL
+  {
+      Cout<<"Linked List is Empty"<<endl;
+  }
+  
+  if(info == head->data)
+  {
+      cout<<"Your Node Found at Head"<<endl;
+  }
+   
+  else if(head==tail && info!=head->data)
+  {
+       cout<<"Node with value"<<info<<"Does not exist"<<endl;
+  }
+  
+  else if(info==tail->info)
+  {
+      cout<<"Your Node Is Found At tail"<<endl;
+  }
+  
+  else
+  { 
+     Node *search;
+     int  count=0;
+     search=head;
+     while(search->next!=NULL)
+     {
+         if(info == search->data)
+         {
+             cout<<"Data Found at position "<<count<<endl;
+         }
+         else
+         {
+             search=search->next;
+             count=count+1;
+         }
+     }
+     cout<<"Your Node Does not exist in Linked List " <<endl;
+  }
+
+}
+
+void Singly_Linked_List::display()
+{
+	if(head==NULL)
+	{
+		cout<<"linked list is empty"<<endl;
+	}
+	else
+	{
+		int i = 1;
+		Node *temp;
+		temp = head;
+		while(temp != NULL)
+		{
+			cout<<i<<" : "<<temp->data<<endl;
+			temp = temp->next;
+			i++;
+		}
+	}
+}
+
+
+int main()
+{
+
+Singly_Linked_list l;
+	l.addInTheEnd(25);
+	l.addInTheEnd(40);
+	l.addInTheEnd(23);
+	l.addInTheEnd(422);
+	l.display();
+    l.del_at_Location(40);
+	l.addInTheStart(23);
+	l.add_at_Location(23,55);
+
+	l.display();
+	return 0;
+
+}
